@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabTT
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.Write("Mời bạn nhập tên:");
+            string name = Console.ReadLine();
+
+            Console.Write("Mời bạn nhập tuổi:");
+            float age = float.Parse(Console.ReadLine());
+
+            Console.Write("Mời bạn nhập điểm Toán:");
+            float Toan = float.Parse(Console.ReadLine());
+
+            Console.Write("Mời bạn nhập điểm Lý:");
+            float Ly = float.Parse(Console.ReadLine());
+
+            Console.Write("Mời bạn nhập điểm Hóa:");
+            float Hoa = float.Parse(Console.ReadLine());
+
+            float DiemTB = (Toan + Ly + Hoa) / 3;
+
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("Tên của bạn:{0}",name);
+            Console.WriteLine("Tuổi: {0}",age);
+            Console.WriteLine("Điểm trung bình: {0}",DiemTB);
+            if (DiemTB >= 8)
+            {
+                Console.WriteLine("Giỏi - Đạt");
+                
+            }
+            else
+            {
+                if (DiemTB >= 6.5)
+                {
+                    Console.WriteLine("Khá - Đạt");
+                    
+                }
+                else {
+                    if (DiemTB >= 5)
+                    {
+                        Console.WriteLine("Trung Bình - Đạt");
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Yếu - Không Đạt");
+
+                    }
+                }
+
+            }
+            Console.WriteLine("***************************************************");
+
+
+
+        }
+    }
+}
