@@ -1,0 +1,160 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml;
+
+namespace LabTT
+{
+    public class Product
+    {
+        public enum productType
+        {
+            Electronics = 1,
+            Clothing = 2,
+            HomeAppliances = 3,
+            Books = 4,
+            Toys = 5,
+        }
+
+
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public productType Type { get; set; }
+        public double Price { get; set; }
+        public int Quantity { get; set; }
+
+        public Product(int id, string name, productType type, double price, int quantity)
+        {
+            Id = id;
+            Name = name;
+            Type = type;
+            Price = price;
+            Quantity = quantity;
+        }
+
+        public double TongGia()
+        {
+            return Price * Quantity;
+        }
+
+        public void ThemSanPham()
+        {
+            
+        }
+        public void DisplayInfo()
+        {
+            Console.WriteLine($"Mã sản phẩm: {Id},\n Tên sản phẩm: {Name},\n Loại sản phẩm: {Type},\n Giá: {Price},\n Số lượng: {Quantity},\n Tổng số lượng * đơn giá : {TongGia()}");
+        }
+    }
+    internal class Lab3
+    {
+        static void Main(string[] args)
+
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            var products = new List<Product>
+            {
+                new Product(1, "Điện thoại", Product.productType.Electronics, 1000, 10),
+                new Product(2, "Áo thun", Product.productType.Clothing, 20, 50),
+                new Product(3, "Tủ lạnh", Product.productType.HomeAppliances, 500, 5),
+                new Product(4, "Sách học", Product.productType.Books, 15, 100),
+                new Product(5, "Đồ chơi trẻ em", Product.productType.Toys, 30, 20),
+                new Product(6, "Laptop", Product.productType.Electronics, 1500, 8),
+            };
+            
+            while (true)
+            {
+                Console.WriteLine("***************************************************");
+                Console.WriteLine("Chương trình quản lý danh sách sản phẩm:");
+                Console.WriteLine("1. Thêm sản phẩm mới");
+                Console.WriteLine("2. Tìm tất cả các sản phẩm thuộc một loại nhất định");
+                Console.WriteLine("3. Tính tổng giá trị tồn kho toàn bộ sản phẩm");
+                Console.WriteLine("4. Tìm sản phẩm có giá cao nhất, thấp nhất ");
+                Console.WriteLine("5. Hiển thị thông tin tất cả sản phẩm");
+                Console.WriteLine("0. Thoát chương trình");
+                Console.WriteLine("***************************************************");
+                Console.Write("Vui lòng chọn một tùy chọn (1-5): ");
+
+                int choice = int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case 1:
+                        {
+                            Console.Write("Nhập mã sản phẩm: ");
+                            int id = int.Parse(Console.ReadLine());
+                            Console.Write("Nhập tên sản phẩm: ");
+                            string name = Console.ReadLine();
+                            Console.Write("Nhập loại sản phẩm (1-Electronics, 2-Clothing, 3-HomeAppliances, 4-Books, 5-Toys): ");
+                            Product.productType type = (Product.productType)int.Parse(Console.ReadLine());
+                            Console.Write("Nhập giá sản phẩm: ");
+                            double price = double.Parse(Console.ReadLine());
+                            Console.Write("Nhập số lượng sản phẩm: ");
+                            int quantity = int.Parse(Console.ReadLine());
+                            products.Add(new Product(id, name, type, price, quantity));
+                            Console.WriteLine("Sản phẩm đã được thêm thành công.");
+                            break;
+                        }
+                    case 2:
+                        {
+                            Console.Write("Nhập loại sản phẩm cần tìm (1-Electronics, 2-Clothing, 3-HomeAppliances, 4-Books, 5-Toys): ");
+                            Product.productType type = (Product.productType)int.Parse(Console.ReadLine());
+                            var filteredProducts = products.Where(p => p.Type == type).ToList();
+                            if (filteredProducts.Count > 0)
+                            {
+                                Console.WriteLine("Các sản phẩm thuộc loại {0}:", type);
+                                foreach (var product in filteredProducts)
+                                {
+                                    product.DisplayInfo();
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Không có sản phẩm nào thuộc loại này.");
+                            }
+                            break;
+                        }
+                    case 3:
+                        {
+                            double totalValue = products.Sum(p => p.TongGia());
+                            Console.WriteLine("Tổng giá trị tồn kho toàn bộ sản phẩm: {0}", totalValue);
+                            break;
+                        }
+                    case 4:
+                        {
+                            var maxPriceProduct = products.OrderByDescending(p => p.Price).FirstOrDefault();
+                            var minPriceProduct = products.OrderBy(p => p.Price).FirstOrDefault();
+                            if (maxPriceProduct != null)
+                            {
+                                Console.WriteLine("Sản phẩm có giá cao nhất:");
+                                maxPriceProduct.DisplayInfo();
+                            }
+                            if (minPriceProduct != null)
+                            {
+                                Console.WriteLine("Sản phẩm có giá thấp nhất:");
+                                minPriceProduct.DisplayInfo();
+                            }
+                            break;
+                        }
+                    case 5:
+                        {
+                            Console.WriteLine("Thông tin tất cả sản phẩm:");
+                            foreach (var product in products)
+                            {
+                                product.DisplayInfo();
+                                Console.WriteLine("***************************************************");
+                            }
+                            break;
+                        }
+                    case 0:
+                        {
+                            Console.WriteLine("Thoát chương trình.");
+                            return;
+                        }
+                }
+            }
+        }
+    }
+}
