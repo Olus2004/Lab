@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LabTT
+{
+    internal class Lab2
+    {
+        public enum satus
+        {
+            New = 1,
+            Processing = 2,
+            Shipped = 3,
+            Delivered = 4,
+            Cancelled = 5,
+
+        }
+        static void Main(string[] args)
+        {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("Chương trình quản lý đơn hàng");
+            Console.WriteLine("1. Xem trạng thái đơn hàng mới tạo");
+            Console.WriteLine("2. Xem trạng thái đơn hàng đang xử lý");
+            Console.WriteLine("3. Xem trạng thái đơn hàng đã giao");
+            Console.WriteLine("4. Xem trạng thái đơn hàng đã hủy");
+            Console.WriteLine("5. Thoát chương trình");
+            Console.WriteLine("***************************************************");
+
+            Console.Write("Vui lòng chọn một tùy chọn (1-5): ");
+            int choice = int.Parse(Console.ReadLine());
+
+            switch (choice)
+            {
+                case (int)satus.New:
+                    Console.WriteLine("Trạng thái đơn hàng: Mới tạo");
+                    break;
+                case (int)satus.Processing:
+                    Console.WriteLine("Trạng thái đơn hàng: Đang xử lý");
+                    break;
+                case (int)satus.Shipped:
+                    Console.WriteLine("Trạng thái đơn hàng: Đã giao");
+                    break;
+                case (int)satus.Delivered:
+                    Console.WriteLine("Trạng thái đơn hàng: Đã giao");
+                    break;
+                case (int)satus.Cancelled:
+                    Console.WriteLine("Trạng thái đơn hàng: Đã hủy");
+                    break;
+                default:
+                    Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 1 đến 5.");
+                    break;
+            }
+             
+            dynamic dynamicStatus = choice;
+            Console.WriteLine("Trạng thái đơn hàng hiện tại: {0}", dynamicStatus);
+            Console.WriteLine("Gía trị của biến dynamicStatus: {0}", dynamicStatus.GetType());
+
+
+        }
+    }
+}
